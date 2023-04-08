@@ -29,7 +29,7 @@ class weChat():
         itchat.run()
 
     def handle(self, msg):
-        thread_pool.submit(self._do_send, msg['Text'])
+        thread_pool.submit(self._do_send, msg['Text'],msg['FromUserName'])
 
     def handle_group(self, msg):
         if not msg['IsAt']:
@@ -41,13 +41,13 @@ class weChat():
     def send(self, msg, receiver):
         itchat.send(msg, toUserName=receiver)
 
-    def _do_send(self, query):
+    def _do_send(self, query,reply_user_id):
         if query == '':
             return
         try:
             reply_text = self.reply(query)
             if reply_text is not None:
-                self.send('[Bing]' + reply_text)
+                self.send('[Bing]' + reply_text,reply_user_id)
         except Exception as e:
             log.exception(e)
 
