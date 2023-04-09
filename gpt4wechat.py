@@ -17,9 +17,9 @@ def handler_group_msg(msg):
 
 class weChat():
     def __init__(self):
-        with open('./cookies.json', 'r') as f:
+        with open('./cookies.json', 'rb') as f:
             cookies = json.load(f)
-            self.bot = Chatbot(cookies=cookies, proxy="http://127.0.0.1:1080")
+            self.bot = Chatbot(cookies=cookies, proxy="http://127.0.0.1:7890")
         pass
 
     def startup(self):
