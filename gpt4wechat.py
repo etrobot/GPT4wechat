@@ -17,10 +17,7 @@ def handler_group_msg(msg):
 
 class weChat():
     def __init__(self):
-        with open('./cookies.json', 'rb') as f:
-            cookies = json.load(f)
-            self.bot = Chatbot(cookies=cookies, proxy="http://127.0.0.1:7890")
-        pass
+        self.bot = asyncio.run(Chatbot.create(cookie_path='./cookies.json',proxy="http://127.0.0.1:7890")
 
     def startup(self):
         # login by scan QRCode
@@ -61,7 +58,7 @@ class weChat():
 
     def reply(self,queryText):
         reply_text=None
-        reply = asyncio.run(self.bot.ask(prompt=queryText, conversation_style=ConversationStyle.creative,
+        reply = asyncio.run(self.bot.ask(prompt=queryText, conversation_style=ConversationStyle.precise,
                                          wss_link="wss://sydney.bing.com/sydney/ChatHub"))
         if reply:
             reply_text = reply["item"]["messages"][1]["adaptiveCards"][0]["body"][0]["text"]
