@@ -2,7 +2,7 @@
 from concurrent.futures import ThreadPoolExecutor
 import itchat
 from itchat.content import *
-from EdgeGPT import Chatbot, ConversationStyle
+from EdgeGPT.EdgeGPT import Chatbot, ConversationStyle
 import asyncio,logging,json
 
 @itchat.msg_register([TEXT, SHARING])
@@ -62,7 +62,7 @@ class weChat():
         reply = asyncio.run(self.bot.ask(prompt=queryText, conversation_style=ConversationStyle.balanced,
                                          wss_link="wss://sydney.bing.com/sydney/ChatHub"))
         if reply:
-            reply_text = reply["item"]["messages"][1]["adaptiveCards"][0]["body"][0]["text"]
+            reply_text = reply["item"]["messages"][-1]["adaptiveCards"][0]["body"][0]["text"]
         return reply_text
 
 if __name__=='__main__':
